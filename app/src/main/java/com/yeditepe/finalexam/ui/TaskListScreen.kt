@@ -14,20 +14,38 @@ import com.yeditepe.finalexam.viewmodel.TaskViewModel
 fun TaskListScreen(viewModel: TaskViewModel = viewModel()) {
 
     // TODO 3: Read task list from ViewModel
+    val tasks = viewModel.tasks
+
+
 
     Column {
         // TODO 4: Display task titles and completion status
         // Use a simple Column or LazyColumn
+    LazyColumn {
+        items(tasks) { task ->
+            TaskRow(task = task, onTaskClick = onTaskClick)
+        }
     }
 }
 
 @Composable
 fun TaskRow(task: Task, navController: NavController) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
 
-    Text(
-        text = task.title,
-        modifier = Modifier.clickable {
-            // TODO 3: Navigate to detail screen with task title
+            // TODO 3: Navigate to detail screen with task titleonTaskClick(task.title)
+                onTaskClick(task.title)
+            }
+            .padding(16.dp)
+    ) {
+        Text(
+            text = task.title,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.weight(1f)
+        )
+
         }
     )
 }
